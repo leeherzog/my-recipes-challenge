@@ -108,6 +108,7 @@ $('.add-recipe').on('click', function(){
 $('.add-recipe').on('click', "#basic-addon3", function () {
     var name = $("#basic-url").val();
     app.createIngredients(name);
+    app.renderRecipes();
 });
 
 // trying to get the click function to work on my createIngredients
