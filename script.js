@@ -1,15 +1,15 @@
 var RecipeApp = function () {
 
     var recipes = [
-        { 
-            name: 'Best Chicken Soup!', 
-            image: 'https://static01.nyt.com/images/2016/11/29/dining/recipelab-chick-noodle-still/recipelab-chick-noodle-still-master675.jpg',
-            ingredients: [
-                { name: 'whole chicken' },
-                { name: 'medium carrots'},
-                { name: 'onions' },
-            ] 
-        }
+        // { 
+        //     name: 'Best Chicken Soup!', 
+        //     image: 'https://static01.nyt.com/images/2016/11/29/dining/recipelab-chick-noodle-still/recipelab-chick-noodle-still-master675.jpg',
+        //     ingredients: [
+        //         { name: 'whole chicken' },
+        //         { name: 'medium carrots'},
+        //         { name: 'onions' },
+        //     ] 
+        // }
     ];
 
     var $recipes = $('.recipes');
@@ -34,13 +34,13 @@ var RecipeApp = function () {
         recipes.push(recipe);
     };
 
-    var createIngredients = function(name){
+    var createIngredients = function(name, $recipeId){
         var ingredient = {
             name: name,
-            id: ingID
+            id: ingId
         };
-        ingID ++;
-        recipes.ingredients.push(ingredient);
+        ingId ++;
+        recipes[$recipeId].ingredients.push(ingredient);
     };
 
     var _getIngredients = function(recipe){
@@ -70,7 +70,7 @@ var RecipeApp = function () {
                     '<h5 class="font-italic font-bold text-center">ingredients</h5>' +
                     '<div class="input-group mb-3">' +
                         '<div class="input-group-prepend">' +
-                            '<span class="add-ingredients input-group-text" id="basic-addon3" >Add Ingredients</span>' +
+                            '<span class="add-ingredients input-group-text" id="basic-addon3">Add Ingredients</span>' +
                         '</div>' + 
                         '<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">' +
                         
@@ -105,9 +105,11 @@ $('.add-recipe').on('click', function(){
 });
 
 //add ingredients
-$('.add-recipe').on('click', "#basic-addon3", function () {
+$('.recipes').on('click', ".add-ingredients", function () {
+    var $recipeDiv = $(this).closest(".recipe");
+    var $recipeId = $recipeDiv.data().id;
     var name = $("#basic-url").val();
-    app.createIngredients(name);
+    app.createIngredients(name, $recipeId);
     app.renderRecipes();
 });
 
